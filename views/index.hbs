@@ -1,0 +1,49 @@
+<div class="jumbotron">
+    <h1 class="display-3">Eat-Da-Burger</h1>
+    <hr class="m-y-md">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 col-xs-12">
+            <form action="/addburger" method="POST">
+                <div class="form-group">
+                    <textarea name="burger_name" rows="3" class="form-control" placeholder="Enter name of burger"></textarea>
+                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <ul class="list-group">
+                {{#each burgers as |burger|}}
+                    {{#unless burger.devoured}}
+                        <li class="list-group-item justify-content-between">
+                            {{burger.burger_name}}
+                            <span>
+                            <form action="/devour" method="POST">
+                                <input type="hidden" name="id" value="{{burger.id}}">
+                                <button type="submit" class="btn btn-primary">Devour</button>
+                            </form>
+                        </span>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <ul class="list-group">
+                {{#each burgers as |burger|}}
+                    {{#if burger.devoured}}
+                        <li class="list-group-item">{{this.burger_name}}</li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p class="text-muted">&copy; 2017 | Luis Paredes</p>
+</footer>
